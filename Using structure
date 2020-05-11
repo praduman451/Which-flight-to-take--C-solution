@@ -1,0 +1,73 @@
+#include<stdio.h>
+struct flights
+{
+    char FlightName[2];
+    int t_hh,t_mm;
+    int duration;
+    int price;
+};
+int main()
+{
+    struct flights f[10];
+    int n,t,i,pref;
+    scanf("%d",&t);
+    while(t--)
+    {  int top=2;
+        scanf("%d",&n);
+        for(i=0;i<n;i++)
+        {
+            scanf("%s",f[i].FlightName);
+            scanf("%d:%d",&f[i].t_hh,&f[i].t_mm);
+            scanf("%d",&f[i].duration);
+            scanf("%d",&f[i].price);
+        }
+ 
+    pref = 0;
+    ascend:
+    for(i=0;i<n;i++)
+        {
+            if(f[i].price < f[pref].price )
+            {
+           
+                pref = i;
+            }
+           
+        }
+        for(i=0;i<n;i++ )
+        {
+            if(f[i].price == f[pref].price && i!=pref )
+            {
+                if(f[i].duration < f[pref].duration )
+                {
+                   
+                    pref = i;
+                }
+                else if(f[i].duration == f[pref].duration )
+                {
+                    if(f[i].t_hh < f[pref].t_hh || (f[i].t_hh == f[pref].t_hh && f[i].t_mm < f[pref].t_mm))
+                    {
+                   
+                        pref = i;
+                    }
+                }
+               
+            }
+       
+    }
+        if(top>0)
+        {
+        printf("%s ",f[pref].FlightName);
+    }
+    else
+    {
+        printf("%s\n",f[pref].FlightName);
+    }
+        f[pref].price = 10000;
+        while(top --)
+        {
+            goto ascend;
+        }
+   
+}
+ 
+}
